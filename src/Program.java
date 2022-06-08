@@ -5,25 +5,34 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Program {
 	
 	Scanner leitor = new Scanner(System.in);
 	
 	public static void main(String[] args) throws SQLException {
-				incluir();
+		
+		System.out.println("Bem vindo a Livraria Livraria, o que gostaria de fazer");
+
+		
+		
+		console();
+
 	}
 
+	
+	
  public static void listar() throws SQLException {
-	 		//1. Abrir conexão com banco de dados
+	 		//1. Abrir conexï¿½o com banco de dados
 		
-			String url = ("jdbc:sqlite:E:\\documents\\eclipse\\Livraria\\db\\estoquedb.db");	
+			String url = ("jdbc:sqlite:C:\\Users\\jupit\\OneDrive\\Documentos\\Code\\Livraria\\db\\estoquedb.db");	
 			Connection conexao = DriverManager.getConnection(url);
 			
 			//2. Criar o comando e executar o SQL
 			
 			Statement comando = conexao.createStatement();
-			String querySlect = "SELECT * FROM tbl_produto";
+			String querySlect = "SELECT * FROM PRODUTO";
 			ResultSet resultado = comando.executeQuery(querySlect);
 			
 			//3. mostrar os dados
@@ -37,61 +46,190 @@ public class Program {
 			
 			System.out.println("Id: " + id);
 			System.out.println("Nome: " + name);
-			System.out.println("Data de Nascimento: " + autor);
-			System.out.println("cpf: " + quant);
-			System.out.println("email: " + valor);
+			System.out.println("Autor: " + autor);
+			System.out.println("Quantidade : " + quant);
+			System.out.println("Valor: R$" + valor);
 			System.out.println("-------------------------");
 			
 			}
  }
  
  public static void incluir() throws SQLException {
+	 
+		Scanner leitor = new Scanner(System.in);
+
 		//1. Abrir conexão com banco de dados
-		String url = ("jdbc:sqlite:E:\\documents\\eclipse\\Livraria\\db\\estoquedb.db");	
+		String url = ("jdbc:sqlite:C:\\Users\\jupit\\OneDrive\\Documentos\\Code\\Livraria\\db\\estoquedb.db");
 		Connection conexao = DriverManager.getConnection(url);
 		
 		
 		//2. Criar o comando e executar o SQL		
 		Statement comando = conexao.createStatement();
+		System.out.println("Você escolheu a opção o adicionar um produto"
+				+ "\ndigite o nome do livro" );		
+		String nome = leitor.nextLine();
+
+		System.out.println("Qual é o autor?");
+		String autor = leitor.nextLine();
+		
+		System.out.println("Qual a quantidade?");
+		int quantidade = leitor.nextInt();
+		
+		System.out.println("Quanto custa?");
+		double preco = leitor.nextDouble();
+		
 		String queryInsert = "INSERT INTO PRODUTO (name, autor, quant, valor)"
-				+ "values ('Manifesto Comunista', 'Karl Marx' , 2 , 39.90)";
+				+ "values ('" + nome + "', '"+ autor +"' , " + quantidade + " , "+ preco +")";
 		comando.execute(queryInsert);
 				
+		leitor.close();
 	
  }
 
 
 public static void atualizar() throws SQLException {
-	//1. Abrir conexão com banco de dados
-	String url = ("jdbc:sqlite:E:\\documents\\eclipse\\Livraria\\db\\estoquedb.db");	
+	//1. Abrir conexï¿½o com banco de dados
+	
+	Scanner leitor = new Scanner(System.in);
+
+	String url = ("jdbc:sqlite:C:\\Users\\jupit\\OneDrive\\Documentos\\Code\\Livraria\\db\\estoquedb.db");	
 	Connection conexao = DriverManager.getConnection(url);
 	
 	
-	//2. Criar o comando e executar o SQL		
+	//2. Seleção
+	
+	System.out.println("Qual o id do livro que você quer modificar?");
+	
+	int id = leitor.nextInt();
+	
+	System.out.println("O que você quer modificar?"
+			+ "\nSelecione "
+			+ "\n 1 - nome"
+			+ "\n 2 - autor"
+			+ "\n 3 - quantidade"
+			+ "\n 4 - valor");
+
+	int mod = leitor.nextInt();	
+
+	System.out.println("insira o novo valor");
+
+			
+	//3. Criar o comando e executar o SQL		
 	Statement comando = conexao.createStatement();
-	String queryUpdate = "update cliente set nome = 'Ana Maria'"
-			+ "Where codigo = 2";
-	comando.executeUpdate(queryUpdate);	
+	
+	String queryUpdate = null;
+	
+	switch (mod) {
+	case 1:
+	
+		String val = leitor.next();
+
+		queryUpdate = "update produto set name = '"+ val +"'"
+				+ "Where id = " + id;
+	
+//		comando.executeUpdate(queryUpdate);	
+		 
+	case 2:
+		String val2 = leitor.nextLine();
+
+
+		queryUpdate = "update produto set autor = '"+ val2 +"'"
+				+ "Where id = " + id;
+		
+		comando.executeUpdate(queryUpdate);	
+	case 3:
+		
+		int val3 = leitor.nextInt();
+
+		
+		queryUpdate = "update produto set quant = '"+ val3 +"'"
+				+ "Where id = " + id;
+		
+		comando.executeUpdate(queryUpdate);	
+	case 4:
+		
+		double val4 = leitor.nextDouble();
+		
+		queryUpdate = "update produto set valor = '"+ val4 +"'"
+				+ "Where id = " + id;
+		comando.executeUpdate(queryUpdate);	
+		
+		break;
+
+	default:
+		System.out.println("Deu ruim");;
+	}
+	
+	
+	
+//	comando.executeUpdate(queryUpdate);	
+	
+	leitor.close();
 }
 
 
 public static void excluir() throws SQLException {
-	//1. Abrir conexão com banco de dados
-	String url = ("jdbc:sqlite:E:\\documents\\eclipse\\Livraria\\db\\estoquedb.db");	
+	
+	Scanner leitor = new Scanner(System.in);
+	//1. Abrir conexï¿½o com banco de dados
+	String url = ("jdbc:sqlite:C:\\Users\\jupit\\OneDrive\\Documentos\\Code\\Livraria\\db\\estoquedb.db");
 	Connection conexao = DriverManager.getConnection(url);
 	
 	
+	System.out.println("Selecione pelo id qual livro você quer deletar");
+	int id = leitor.nextInt();
+	
 	//2. Criar o comando e executar o SQL		
 	Statement comando = conexao.createStatement();
-	String queryUpdate = "DELETE FROM cliente WHERE id = 4";
+	String queryUpdate = "DELETE FROM produto WHERE id = " + id;
 	comando.executeUpdate(queryUpdate);	
+	leitor.close();
 }
 
 
+
+
+public static void console() throws SQLException {
+	
+	Scanner leitor = new Scanner(System.in);
+	
+	System.out.println("Selecione 1 para listar"
+			+ "\n\nSelecione 2 para incluir um novo livro"
+			+ "\n\nSelecione 3 para atualizar um livro existente"
+			+ "\n\nSelecione 4 para excluir um livro");
+	
+	
+	int selecao = leitor.nextInt();
+	
+	switch (selecao) {
+	case 1:
+		System.out.println("\nlista de livros:\n");
+		
+		listar();
+		
+
+	case 2:
+		
+		incluir();	
+		
+	case 3:
+		
+		atualizar();
+		
+		
+	case 4:
+		
+		excluir();
+		
+	default:
+		System.out.println("Opção selecionada invalida");
+	}
+	
+	console();
+	leitor.close();
 }
 
-
-
+}
  
 
  
