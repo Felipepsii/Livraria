@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
 public class Program {
 	
@@ -69,23 +68,26 @@ public class Program {
 				+ "\ndigite o nome do livro" );		
 		String nome = leitor.nextLine();
 
-		System.out.println("Qual é o autor?");
+		System.out.println("\nQual é o autor?");
 		String autor = leitor.nextLine();
 		
-		System.out.println("Qual a quantidade?");
+		System.out.println("\nQual a quantidade?");
 		int quantidade = leitor.nextInt();
 		
-		System.out.println("Quanto custa?");
+		System.out.println("\nQuanto custa?");
 		double preco = leitor.nextDouble();
 		
 		String queryInsert = "INSERT INTO PRODUTO (name, autor, quant, valor)"
 				+ "values ('" + nome + "', '"+ autor +"' , " + quantidade + " , "+ preco +")";
 		comando.execute(queryInsert);
 				
+		System.out.println("\n------------------------------------------");
+		System.out.println("\nLivro: " + nome + " adicionado com sucesso");
+		System.out.println("\n------------------------------------------");
+		
 		leitor.close();
 	
  }
-
 
 public static void atualizar() throws SQLException {
 	//1. Abrir conexï¿½o com banco de dados
@@ -113,30 +115,39 @@ public static void atualizar() throws SQLException {
 
 	System.out.println("insira o novo valor");
 
-			
+	
+	
 	//3. Criar o comando e executar o SQL		
 	Statement comando = conexao.createStatement();
 	
 	String queryUpdate = null;
 	
+	boolean  c = false;
+	
 	switch (mod) {
 	case 1:
-	
+		
 		String val = leitor.next();
 
 		queryUpdate = "update produto set name = '"+ val +"'"
 				+ "Where id = " + id;
 	
-//		comando.executeUpdate(queryUpdate);	
-		 
+		comando.executeUpdate(queryUpdate);	
+		c = true;
+
+		
+		break;
 	case 2:
-		String val2 = leitor.nextLine();
+		String val2 = leitor.next();
 
 
 		queryUpdate = "update produto set autor = '"+ val2 +"'"
 				+ "Where id = " + id;
 		
 		comando.executeUpdate(queryUpdate);	
+		c = true;
+		
+		break;
 	case 3:
 		
 		int val3 = leitor.nextInt();
@@ -146,6 +157,9 @@ public static void atualizar() throws SQLException {
 				+ "Where id = " + id;
 		
 		comando.executeUpdate(queryUpdate);	
+		c = true;
+		
+		break;
 	case 4:
 		
 		double val4 = leitor.nextDouble();
@@ -154,19 +168,29 @@ public static void atualizar() throws SQLException {
 				+ "Where id = " + id;
 		comando.executeUpdate(queryUpdate);	
 		
+		c = true;
+		
 		break;
 
 	default:
-		System.out.println("Deu ruim");;
+
+	c = false;
+	
+	
+	if (c == true) {
+
+		System.out.println("------------------------------");
+		System.out.println("Atualizado com sucesso");
+		System.out.println("------------------------------");
+		
+	} else {
+
+		System.out.println("Deu ruim");
 	}
-	
-	
-	
-//	comando.executeUpdate(queryUpdate);	
 	
 	leitor.close();
 }
-
+}
 
 public static void excluir() throws SQLException {
 	
@@ -183,11 +207,10 @@ public static void excluir() throws SQLException {
 	Statement comando = conexao.createStatement();
 	String queryUpdate = "DELETE FROM produto WHERE id = " + id;
 	comando.executeUpdate(queryUpdate);	
+	System.out.println("Livro do id " + id + " excluido com sucesso");
 	leitor.close();
+
 }
-
-
-
 
 public static void console() throws SQLException {
 	
@@ -206,26 +229,28 @@ public static void console() throws SQLException {
 		System.out.println("\nlista de livros:\n");
 		
 		listar();
-		
+		break;	
 
 	case 2:
 		
 		incluir();	
-		
+		break;
+
 	case 3:
 		
 		atualizar();
-		
+		break;
 		
 	case 4:
 		
 		excluir();
+		break;
 		
 	default:
 		System.out.println("Opção selecionada invalida");
+		console();
 	}
 	
-	console();
 	leitor.close();
 }
 
