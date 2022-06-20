@@ -10,7 +10,7 @@ public class Functions {
 public static void listar() throws SQLException {
 	//1. Abrir conexï¿½o com banco de dados
 
-	String url = ("jdbc:sqlite:C:\\Users\\jupit\\OneDrive\\Documentos\\Code\\Livraria\\db\\estoquedb.db");	
+	String url = ("jdbc:sqlite:E:\\documents\\eclipse\\Livraria\\db\\estoquedb.db");	
 	Connection conexao = DriverManager.getConnection(url);
 	
 	//2. Criar o comando e executar o SQL
@@ -37,7 +37,7 @@ public static void listar() throws SQLException {
 	
 	}
 	
-	menu();
+	console();
 }
 
 public static void incluir() throws SQLException {
@@ -45,7 +45,7 @@ public static void incluir() throws SQLException {
 	Scanner leitor = new Scanner(System.in);
 
 	//1. Abrir conexão com banco de dados
-	String url = ("jdbc:sqlite:C:\\Users\\jupit\\OneDrive\\Documentos\\Code\\Livraria\\db\\estoquedb.db");
+	String url = ("jdbc:sqlite:E:\\documents\\eclipse\\Livraria\\db\\estoquedb.db");
 	Connection conexao = DriverManager.getConnection(url);
 	
 	
@@ -74,7 +74,7 @@ public static void incluir() throws SQLException {
 	
 	leitor.close();
 	
-	menu();
+	System.out.println("\nOperação Concluida");
 	
 }
 
@@ -83,7 +83,7 @@ public static void atualizar() throws SQLException {
 	
 	Scanner leitor = new Scanner(System.in);
 	
-	String url = ("jdbc:sqlite:C:\\Users\\jupit\\OneDrive\\Documentos\\Code\\Livraria\\db\\estoquedb.db");	
+	String url = ("jdbc:sqlite:E:\\documents\\eclipse\\Livraria\\db\\estoquedb.db");	
 	Connection conexao = DriverManager.getConnection(url);
 	
 	
@@ -106,24 +106,19 @@ public static void atualizar() throws SQLException {
 	System.out.println("insira o novo valor");
 	
 	
-	
 	//3. Criar o comando e executar o SQL		
 	Statement comando = conexao.createStatement();
 	
 	String queryUpdate = null;
 	
-	boolean  c = false;
 	
 	switch (mod) {
 	case 1:
-		
 		String val = leitor.nextLine();
-	
 		queryUpdate = "update produto set name = '"+ val +"'"
 				+ "Where id = " + id;
 	
 		comando.executeUpdate(queryUpdate);	
-		c = true;
 	
 		
 		break;
@@ -135,7 +130,6 @@ public static void atualizar() throws SQLException {
 				+ "Where id = " + id;
 		
 		comando.executeUpdate(queryUpdate);	
-		c = true;
 		
 		break;
 	case 3:
@@ -147,7 +141,6 @@ public static void atualizar() throws SQLException {
 				+ "Where id = " + id;
 		
 		comando.executeUpdate(queryUpdate);	
-		c = true;
 		
 		break;
 	case 4:
@@ -158,39 +151,30 @@ public static void atualizar() throws SQLException {
 				+ "Where id = " + id;
 		comando.executeUpdate(queryUpdate);	
 		
-		c = true;
 		
 		break;
 	
-	default:
-	
-	c = false;
-	
-	
-	if (c == true) {
+	}	
 	
 		System.out.println("------------------------------");
 		System.out.println("Atualizado com sucesso");
 		System.out.println("------------------------------");
 		
-	} else {
-	
-		System.out.println("Deu ruim");
-	}
+
 	
 	
-	leitor.close();
-	break;
-	}
-	menu();
+
+leitor.close();
+
+	console();
 	
-	}
+}
 
 public static void excluir() throws SQLException {
 
 	Scanner leitor = new Scanner(System.in);
 	//1. Abrir conexï¿½o com banco de dados
-	String url = ("jdbc:sqlite:C:\\Users\\jupit\\OneDrive\\Documentos\\Code\\Livraria\\db\\estoquedb.db");
+	String url = ("jdbc:sqlite:E:\\documents\\eclipse\\Livraria\\db\\estoquedb.db");
 	Connection conexao = DriverManager.getConnection(url);
 	
 	
@@ -204,7 +188,7 @@ public static void excluir() throws SQLException {
 	System.out.println("Livro do id " + id + " excluido com sucesso");
 	leitor.close();
 	
-		menu();
+		console();
 	}
 
 public static void console() throws SQLException {
@@ -258,10 +242,7 @@ public static void console() throws SQLException {
 
 public static void menu() throws SQLException {
 
-	
-	
 	System.out.println("\n\nVoltando para o menu.....\n");
-	
 	
 		console();
 

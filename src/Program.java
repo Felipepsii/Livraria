@@ -9,20 +9,9 @@ public class Program extends Functions{
 	public static void main(String[] args) throws SQLException {
 		
 		System.out.println("Bem vindo a Livraria Livraria, o que gostaria de fazer");
-
-		
 		
 		console();
 
 	}
 
-	
-	
- 
-
 }
- 
-
- 
-
-
