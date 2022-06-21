@@ -10,7 +10,7 @@ public class Functions {
 public static void listar() throws SQLException {
 	//1. Abrir conexï¿½o com banco de dados
 
-	String url = ("jdbc:sqlite:E:\\documents\\eclipse\\Livraria\\db\\estoquedb.db");	
+	String url = ("jdbc:sqlite:C:\\Users\\jupit\\OneDrive\\Documentos\\Code\\Livraria\\db\\estoquedb.db");	
 	Connection conexao = DriverManager.getConnection(url);
 	
 	//2. Criar o comando e executar o SQL
@@ -45,7 +45,7 @@ public static void incluir() throws SQLException {
 	Scanner leitor = new Scanner(System.in);
 
 	//1. Abrir conexão com banco de dados
-	String url = ("jdbc:sqlite:E:\\documents\\eclipse\\Livraria\\db\\estoquedb.db");
+	String url = ("jdbc:sqlite:C:\\Users\\jupit\\OneDrive\\Documentos\\Code\\Livraria\\db\\estoquedb.db");	
 	Connection conexao = DriverManager.getConnection(url);
 	
 	
@@ -83,7 +83,7 @@ public static void atualizar() throws SQLException {
 	
 	Scanner leitor = new Scanner(System.in);
 	
-	String url = ("jdbc:sqlite:E:\\documents\\eclipse\\Livraria\\db\\estoquedb.db");	
+	String url = ("jdbc:sqlite:C:\\Users\\jupit\\OneDrive\\Documentos\\Code\\Livraria\\db\\estoquedb.db");	
 	Connection conexao = DriverManager.getConnection(url);
 	
 	
@@ -160,7 +160,7 @@ public static void atualizar() throws SQLException {
 		System.out.println("Atualizado com sucesso");
 		System.out.println("------------------------------");
 		
-
+		
 	
 	
 
@@ -174,7 +174,7 @@ public static void excluir() throws SQLException {
 
 	Scanner leitor = new Scanner(System.in);
 	//1. Abrir conexï¿½o com banco de dados
-	String url = ("jdbc:sqlite:E:\\documents\\eclipse\\Livraria\\db\\estoquedb.db");
+	String url = ("jdbc:sqlite:C:\\Users\\jupit\\OneDrive\\Documentos\\Code\\Livraria\\db\\estoquedb.db");	
 	Connection conexao = DriverManager.getConnection(url);
 	
 	
@@ -240,19 +240,6 @@ public static void console() throws SQLException {
 		
 		}
 
-public static void menu() throws SQLException {
-
-	System.out.println("\n\nVoltando para o menu.....\n");
-	
-		console();
-
-	
 }
 
 
-
-
-
-
-
-}
