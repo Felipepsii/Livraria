@@ -6,6 +6,64 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class Functions {
+	
+public static void console() throws SQLException {
+	
+		Scanner leitor = new Scanner(System.in);
+			
+		System.out.println("\nSelecione 1 para listar"
+		+ "\n\nSelecione 2 para incluir um novo livro"
+		+ "\n\nSelecione 3 para atualizar um livro existente"
+		+ "\n\nSelecione 4 para excluir um livro"
+		+ "\n\nSelecione 5 para sair");
+				
+			int selecao = leitor.nextInt();
+		
+	int consol = 0;
+		
+	while (consol != 1) {
+		
+	
+	
+	switch (selecao) {
+	case 1:
+		System.out.println("\nlista de livros:\n");
+		
+		listar();
+		break;	
+	
+	case 2:
+		
+		incluir();	
+		break;
+	
+	case 3:
+		
+		atualizar();
+		break;
+		
+	case 4:
+		
+		excluir();
+		break;
+		
+	case 5:
+		
+		break;
+		
+	default:
+		System.out.println("Opção selecionada invalida");
+		console();
+		break;
+	}
+	
+	consol = 1;
+	
+	}
+	leitor.close();
+		
+		}
+
 
 public static void listar() throws SQLException {
 	//1. Abrir conexï¿½o com banco de dados
@@ -37,7 +95,7 @@ public static void listar() throws SQLException {
 	
 	}
 	
-	console();
+//	console();
 }
 
 public static void incluir() throws SQLException {
@@ -76,6 +134,8 @@ public static void incluir() throws SQLException {
 	
 	System.out.println("\nOperação Concluida");
 	
+//	console();
+	
 }
 
 public static void atualizar() throws SQLException {
@@ -111,10 +171,11 @@ public static void atualizar() throws SQLException {
 	
 	String queryUpdate = null;
 	
-	
+
 	switch (mod) {
 	case 1:
-		String val = leitor.nextLine();
+
+		String val = leitor.next();
 		queryUpdate = "update produto set name = '"+ val +"'"
 				+ "Where id = " + id;
 	
@@ -161,13 +222,11 @@ public static void atualizar() throws SQLException {
 		System.out.println("------------------------------");
 		
 		
-	
+		
 	
 
 leitor.close();
 
-	console();
-	
 }
 
 public static void excluir() throws SQLException {
@@ -188,57 +247,8 @@ public static void excluir() throws SQLException {
 	System.out.println("Livro do id " + id + " excluido com sucesso");
 	leitor.close();
 	
-		console();
 	}
 
-public static void console() throws SQLException {
-
-	Scanner leitor = new Scanner(System.in);
-	
-	System.out.println("\nSelecione 1 para listar"
-			+ "\n\nSelecione 2 para incluir um novo livro"
-			+ "\n\nSelecione 3 para atualizar um livro existente"
-			+ "\n\nSelecione 4 para excluir um livro"
-			+ "\n\nSelecione 5 para sair");
-	
-	
-	int selecao = leitor.nextInt();
-	
-	switch (selecao) {
-	case 1:
-		System.out.println("\nlista de livros:\n");
-		
-		listar();
-		break;	
-	
-	case 2:
-		
-		incluir();	
-		break;
-	
-	case 3:
-		
-		atualizar();
-		break;
-		
-	case 4:
-		
-		excluir();
-		break;
-		
-	case 5:
-		
-		break;
-		
-	default:
-		System.out.println("Opção selecionada invalida");
-		console();
-		break;
-	}
-	
-	leitor.close();
-		
-		}
 
 }
 
